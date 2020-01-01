@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App.vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import './assets/css/bootstrap/dist/css/custom.min.css'
 
 Vue.config.productionTip = false
 
