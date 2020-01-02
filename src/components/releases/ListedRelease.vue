@@ -1,5 +1,5 @@
 <template>
-  <b-col class="mb-2" md="6" lg="4" xl="3">
+  <b-col class="mb-2" md="6" lg="4" xl="3" @click="$router.push('/release/' + release.catalogId)">
     <b-form-row class="align-items-center">
       <b-col cols="2" sm="2" md="3">
         <b-img class="shadow" fluid-grow rounded :src="release.coverUrl"></b-img>
