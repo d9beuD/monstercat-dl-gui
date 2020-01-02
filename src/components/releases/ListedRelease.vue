@@ -1,14 +1,14 @@
 <template>
-  <b-col class="mb-2" md="6" lg="4">
-    <b-row>
-      <b-col md="3">
-        <b-img fluid :src="release.coverUrl"></b-img>
+  <b-col class="mb-2" md="6" lg="4" xl="3">
+    <b-form-row class="align-items-center">
+      <b-col cols="2" sm="2" md="3">
+        <b-img class="shadow" fluid-grow rounded :src="release.coverUrl"></b-img>
       </b-col>
-      <b-col>
-        <h4 class="mb-0">{{ release.title }}</h4>
-        <h5 class="mb-0">{{ release.featuredArtist }}</h5>
+      <b-col cols="10" sm="10" md="9">
+        <h5 class="mb-0 text-truncate text-danger">{{ release.title }}</h5>
+        <h6 class="mb-0">{{ release.renderedArtists }}</h6>
       </b-col>
-    </b-row>
+    </b-form-row>
   </b-col>
 </template>
 

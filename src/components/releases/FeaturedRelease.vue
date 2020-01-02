@@ -1,8 +1,8 @@
 <template>
-  <b-card class="mb-3 shadow" bg-variant="400">
+  <b-card class="mb-3 shadow" bg-variant="300">
     <b-row class="align-items-center">
-      <b-col md="4" lg="3">
-        <b-img fluid :src="release.coverUrl"></b-img>
+      <b-col md="4" lg="3" xl="2">
+        <b-img fluid-grow rounded :src="release.coverUrl"></b-img>
       </b-col>
       <b-col>
         <div class="h5 mb-0">
