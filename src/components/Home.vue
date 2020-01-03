@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div>
+    <template v-if="!isWorking">
+      <div>
       <b-container fluid class="sticky-top bg-blur">
         <h1>Releases</h1>
       </b-container>
@@ -15,10 +16,16 @@
         <div class="sticky-top"></div>
         <releases-list :releases-list="otherReleases"></releases-list>
       </template>
-    <template v-else>
-      No release was found or no internet connection.
+      <template v-else>
+        No release was found or no internet connection.
+      </template>
+    </div>
     </template>
-  </div>
+    <template v-else>
+      <div class="p-5 d-flex justify-content-center">
+        <b-spinner variant="primary" :style="{width: '3rem', height: '3rem'}"></b-spinner>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -29,7 +36,8 @@
   export default {
     data() {
       return {
-        releases: []
+        releases: [],
+        isWorking: false
       }
     },
     computed: {
@@ -41,9 +49,12 @@
       }
     },
     mounted() {
+      this.isWorking = true
+
       fetch(this.$root.monstercat + '/api/catalog/release?limit=50')
         .then(data => data.json()).then(json => {
           this.releases = json.results
+          this.isWorking = false
         })
     },
     components: {
