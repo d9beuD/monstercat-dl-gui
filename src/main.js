@@ -28,7 +28,10 @@ const routes = [
 
 const router = new VueRouter({
   mode: process.env.IS_ELECTRON ? 'hash' : 'history',
-  routes
+  routes,
+  scrollBehavior () {
+    return { x: 0, y: 0 }
+  }
 })
 
 new Vue({
