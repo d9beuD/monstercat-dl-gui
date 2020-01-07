@@ -11,10 +11,15 @@ import './assets/css/bootstrap/dist/css/custom.min.css'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+import { faSync } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faDownload, faChevronLeft)
+library.add(
+  faDownload, faChevronLeft, faExclamationTriangle, faSync
+)
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
