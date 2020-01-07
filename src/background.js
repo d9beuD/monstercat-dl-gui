@@ -1,11 +1,18 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain } from 'electron'
 import {
   createProtocol,
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
 const isDevelopment = process.env.NODE_ENV !== 'production'
+const { download } = require('electron-dl')
+
+ipcMain.on('download-button', async (event, info) => {
+  const win = BrowserWindow.getFocusedWindow()
+  await download(win, info.url, info.properties)
+    .then(dl => win.send('done', dl.getSavePath()))
+})
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

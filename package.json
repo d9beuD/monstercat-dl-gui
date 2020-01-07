@@ -18,6 +18,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "bootstrap-vue": "^2.1.0",
     "core-js": "^3.4.4",
+    "electron-dl": "^2.0.0",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3"
   },
