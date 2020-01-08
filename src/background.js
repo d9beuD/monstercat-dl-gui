@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 'use strict'
 
 import { app, protocol, BrowserWindow, ipcMain } from 'electron'
@@ -5,14 +6,9 @@ import {
   createProtocol,
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
+import Downloader from './downloader.js'
 const isDevelopment = process.env.NODE_ENV !== 'production'
-const { download } = require('electron-dl')
-
-ipcMain.on('download-button', async (event, info) => {
-  const win = BrowserWindow.getFocusedWindow()
-  await download(win, info.url, info.properties)
-    .then(dl => win.send('done', dl.getSavePath()))
-})
+const DownloadManager = require('electron-download-manager')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -28,6 +24,7 @@ function createWindow () {
     height: 600,
     minWidth: 400,
     minHeight: 322,
+    frame: process.platform === 'darwin' ? true : false,
     webPreferences: {
       nodeIntegration: true
     }
@@ -36,7 +33,7 @@ function createWindow () {
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-    if (!process.env.IS_TEST) win.webContents.openDevTools()
+    // if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     createProtocol('app')
     // Load the index.html when not in development
@@ -46,6 +43,8 @@ function createWindow () {
   win.on('closed', () => {
     win = null
   })
+
+  Downloader.setWindow(win)
 }
 
 // Quit when all windows are closed.
@@ -84,6 +83,22 @@ app.on('ready', async () => {
 
   }
   createWindow()
+})
+
+DownloadManager.register({downloadFolder: app.getPath('downloads')})
+Downloader.setDownloadManager(DownloadManager)
+Downloader.setApp(app)
+
+ipcMain.on('download-musics', (event, info) => {
+  Downloader.download(info.urls, {
+    onDone: (error, payload) => {
+      event.reply('one-done', payload.url)
+    }
+  })
+})
+
+ipcMain.on('get-platform', (event) => {
+  event.reply('get-platform', process.platform)
 })
 
 // Exit cleanly on request from parent process in development mode.

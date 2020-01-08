@@ -1,13 +1,12 @@
 <template>
   <a href="#" @click="downloadAll">
-    <fa-icon :icon="icon"></fa-icon>
+    <fa-icon :icon="icon" :spin="isWorking"></fa-icon>
     {{ title }}
   </a>
 </template>
 
 <script>
-const { ipcRenderer } = require("electron")
-
+/* eslint-disable no-console */
 export default {
   props: {
     musics: {
@@ -15,6 +14,11 @@ export default {
       required: true
     },
     title: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    albumName: {
       type: String,
       required: false,
       default: ''
@@ -30,20 +34,25 @@ export default {
   },
   methods: {
     downloadAll () {
+      const { ipcRenderer } = require("electron")
       this.i = 0
       this.isWorking = true
-      this.next()
-    },
-    download (music) {
-      ipcRenderer.send('download-button', {
-        url: this.blobcache + music.albums.streamHash,
-        options: {
-          filename: `${music.artistsTitle} - ${music.title}`
-        }
+
+      ipcRenderer.send('download-musics', {
+        urls: this.urls,
+        album: this.albumName
       })
 
-      ipcRenderer.on('done', () => {
-        this.next()
+      ipcRenderer.on('one-done', () => {
+        console.log('one-done')
+      })
+
+      ipcRenderer.on('all-done', () => {
+        this.isWorking = false
+      })
+
+      ipcRenderer.on('progress', (event, arg) => {
+        console.log(arg)
       })
     },
     next () {
@@ -62,6 +71,18 @@ export default {
       }
 
       return this.hasError ? 'exclamation-triangle' : 'download'
+    },
+    urls () {
+      let urls = []
+
+      this.musics.map(music => {
+        urls.push({
+          url: this.blobcache + music.albums.streamHash,
+          album: this.albumName
+        })
+      })
+
+      return urls
     }
   }
 }

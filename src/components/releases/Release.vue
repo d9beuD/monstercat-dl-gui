@@ -8,7 +8,7 @@
           <b-col sm="3">
             <b-img fluid-grow :src="release.coverUrl" class="mb-2"></b-img>
             <div class="d-flex">
-              <download-button :musics="musics" title="Download all"></download-button>
+              <download-button :musics="musics" :album-name="release.title" title="Download all"></download-button>
             </div>
           </b-col>
           <b-col sm="9">
@@ -22,7 +22,7 @@
     <b-container>
       <b-table :items="musics" :fields="fields">
         <template v-slot:cell(download)="data">
-          <download-button :musics="[data.item]"></download-button>
+          <download-button :musics="[data.item]" :album-name="release.title"></download-button>
         </template>
       </b-table>
     </b-container>
