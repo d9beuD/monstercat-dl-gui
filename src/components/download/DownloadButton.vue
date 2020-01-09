@@ -78,7 +78,8 @@ export default {
       this.musics.map(music => {
         urls.push({
           url: this.blobcache + music.albums.streamHash,
-          album: this.albumName
+          album: this.albumName,
+          name: `${music.artistsTitle} - ${music.title}.mp3`
         })
       })
 
