@@ -51,49 +51,40 @@ export default {
     }
   },
   next() {
-    // If no session has started, start one
-    if (this.data.sessionIterator < 0) {
-      this.data.sessionIterator += 1
-      this.next()
-    } else {
-      if (this.data.sessions.length > 0) {
-        // If a session is started
+    if (this.pendingFiles() > 0) {
+      if (this.data.sessionIterator > -1) {
         let session = this.data.sessions[this.data.sessionIterator]
 
-        // If no file in this session has been downloaded, download one
-        if (session.iterator < 0) {
-          session.iterator += 1
-          this.next()
-        } else {
-          this._download()
-
-          // If the file iterator is under file length, increment
-          console.log('Is file iterator under files length:', (session.iterator < session.files.length - 1))
-          if (session.iterator < session.files.length - 1) {
+        if (typeof session != 'undefined') {
+          if (session.iterator < session.files.length -1) {
             session.iterator += 1
-          } else {
-            console.log('sessionIterator:', this.data.sessionIterator)
-            if (this.data.sessionIterator < this.data.sessions.length - 1) {
-              console.log(this.data.sessionIterator)
+          } else if (session.iterator === session.files.length -1) {
+            if (this.data.sessionIterator < this.data.sessions.length -1) {
               this.data.sessionIterator += 1
-            } else {
-              console.log('end')
-              this.end()
             }
           }
         }
+      } else {
+        this.data.sessionIterator += 1
+        this.data.sessions[this.data.sessionIterator].iterator += 1
       }
+
+      this._download()
+    } else {
+      this.end()
     }
   },
   _download() {
     let session = this.data.sessions[this.data.sessionIterator]
     let file = session.files[session.iterator]
+    let path = 'monstercat-download-gui/' + file.album
 
     this.dlManager.download({
       url: file.url,
-      path: 'monstercat-download-gui/' + file.album,
-      onProgress: progress => {
+      path: path,
+      onProgress: (progress) => {
         this.update(progress)
+
         if ('onProgress' in session) {
           session.onProgress(progress)
         }
@@ -117,9 +108,9 @@ export default {
   },
   pendingFiles() {
     let pending = 0
-    console.log(this.data.sessions)
-    this.data.sessions.forEach(session => {
-      console.log(session)
+
+    this.data.sessions.map(session => {
+      pending += session.files.filter(file => !file.isFinised).length
     })
 
     return pending
