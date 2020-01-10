@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
+import store from './store'
 
 import App from './App.vue'
 import Home from './components/Home.vue'
@@ -42,6 +43,7 @@ const router = new VueRouter({
 new Vue({
   render: h => h(App),
   router,
+  store,
   data: {
     monstercat: 'https://connect.monstercat.com'
   }
