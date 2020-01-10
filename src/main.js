@@ -9,23 +9,11 @@ import Release from './components/releases/Release.vue'
 
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/css/bootstrap/dist/css/custom.min.css'
-
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-import { faDownload } from '@fortawesome/free-solid-svg-icons'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
-import { faSync } from '@fortawesome/free-solid-svg-icons'
-
-library.add(
-  faDownload, faChevronLeft, faExclamationTriangle, faSync
-)
+import './icons'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
-Vue.component('fa-icon', FontAwesomeIcon)
 
 const routes = [
   { path: '/', component: Home },
