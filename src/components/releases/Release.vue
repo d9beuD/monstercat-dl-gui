@@ -5,17 +5,15 @@
     <b-container class="py-4 bg-blur mb-3" fluid>
       <b-container>
         <b-row>
-          <b-col sm="3">
-            <b-img fluid-grow :src="release.coverUrl" class="mb-2"></b-img>
-            <div class="d-flex">
-              <download-button :musics="musics" :album-name="release.title" title="Download all"></download-button>
-            </div>
+          <b-col sm="3" class="d-flex justify-content-center">
+            <b-img fluid-grow :src="release.coverUrl" class="album-img mb-2"></b-img>
           </b-col>
           <b-col sm="9">
             <h3>{{ release.title }}</h3>
             <h4>{{ release.renderedArtists }}</h4>
           </b-col>
         </b-row>
+        <download-button :musics="musics" :album-name="release.title" title="Download all" button></download-button>
       </b-container>
     </b-container>
     </div>

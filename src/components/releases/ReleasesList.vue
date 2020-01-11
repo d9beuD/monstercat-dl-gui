@@ -3,7 +3,7 @@
     <b-container fluid class="sticky-top bg-blur">
       <div class="border-bottom mb-3 d-flex align-items-center justify-content-between">
         <h3 class="mb-0">{{ title }}</h3>
-        <a href="#" @click="switchSeeAll">{{ seeAllText }}</a>
+        <a href="#" class="text-decoration-none" @click="switchSeeAll">{{ seeAllText }}</a>
       </div>
     </b-container>
     <b-container fluid>

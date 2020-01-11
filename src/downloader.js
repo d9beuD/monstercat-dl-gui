@@ -85,8 +85,8 @@ export default {
       onProgress: (progress) => {
         this.update(progress)
 
-        if ('onProgress' in session) {
-          session.onProgress(progress)
+        if ('onProgress' in session.options) {
+          session.options.onProgress(progress)
         }
       }
     }, (error, info) => {

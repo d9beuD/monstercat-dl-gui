@@ -93,6 +93,9 @@ ipcMain.on('download-musics', (event, info) => {
   Downloader.download(info.urls, {
     onDone: (error, payload) => {
       event.reply('one-done', payload.url)
+    },
+    onProgress: (progress) => {
+      event.reply('progress', progress)
     }
   })
 })

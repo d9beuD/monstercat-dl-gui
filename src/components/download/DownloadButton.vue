@@ -1,7 +1,12 @@
 <template>
-  <a href="#" @click="downloadAll">
-    <fa-icon :icon="icon" :spin="isWorking"></fa-icon>
-    {{ title }}
+  <a :class="{'btn btn-primary': button, disabled: isWorking}" href="#" @click="downloadAll">
+    <div>
+      <fa-icon :icon="icon" :spin="isWorking"></fa-icon>
+      {{ title }}
+    </div>
+    <div v-if="progress > 0">
+      <b-progress :value="progress" :variant="button ? progressBarVariant : variant" height="3px" :class="[button ? 'bg-' + variant : '']"></b-progress>
+    </div>
   </a>
 </template>
 
@@ -22,6 +27,21 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    button: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    variant: {
+      type: String,
+      required: false,
+      default: 'primary'
+    },
+    progressBarVariant: {
+      type: String,
+      required: false,
+      default: 'white'
     }
   },
   data () {
@@ -29,7 +49,9 @@ export default {
       blobcache: 'https://blobcache.monstercat.com/blobs/',
       i: 0,
       hasError: false,
-      doneCount: this.musics.length
+      doneCount: this.musics.length,
+      progress: 0,
+      success: false
     }
   },
   methods: {
@@ -49,12 +71,8 @@ export default {
         this.doneCount += 1
       })
 
-      ipcRenderer.on('all-done', () => {
-        this.isWorking = false
-      })
-
-      ipcRenderer.on('progress', (event, arg) => {
-        console.log(arg)
+      ipcRenderer.on('progress', (event, progress) => {
+        this.progress = progress.progress
       })
     }
   },
@@ -67,7 +85,7 @@ export default {
         return 'sync'
       }
 
-      return this.hasError ? 'exclamation-triangle' : 'download'
+      return this.success ? 'check' : 'download'
     },
     urls () {
       let urls = []
@@ -86,6 +104,11 @@ export default {
   watch: {
     musics (newValue) {
       this.doneCount = newValue
+    },
+    progress (newValue) {
+      if (newValue >= 100) {
+        this.progress = 0
+      }
     }
   }
 }

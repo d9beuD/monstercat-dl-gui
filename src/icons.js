@@ -14,12 +14,13 @@ import {
   faSync,
   faUserAstronaut,
   faCompactDisc,
-  faSearch
+  faSearch,
+  faCheck
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faDownload, faChevronLeft, faChevronRight, faExclamationTriangle, faSync, faUserAstronaut,
-  faCompactDisc, faSearch
+  faCompactDisc, faSearch, faCheck
 )
 
 Vue.component('fa-icon', FontAwesomeIcon)
