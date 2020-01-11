@@ -13747,4 +13747,8 @@ a.text-900:hover, a.text-900:focus {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
+
+.album-img {
+  max-width: 300px !important;
+}
 /*# sourceMappingURL=custom.css.map */
