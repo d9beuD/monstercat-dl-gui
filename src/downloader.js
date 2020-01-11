@@ -91,8 +91,8 @@ export default {
       }
     }, (error, info) => {
       file.isFinised = true
-      if ('onDone' in session) {
-        session.onDone(error, info)
+      if ('onDone' in session.options) {
+        session.options.onDone(error, info)
       }
       this.next()
     })

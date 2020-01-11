@@ -28,15 +28,17 @@ export default {
     return {
       blobcache: 'https://blobcache.monstercat.com/blobs/',
       i: 0,
-      isWorking: false,
-      hasError: false
+      hasError: false,
+      doneCount: this.musics.length
     }
   },
   methods: {
-    downloadAll () {
+    downloadAll (event) {
+      event.preventDefault()
+
       const { ipcRenderer } = require("electron")
       this.i = 0
-      this.isWorking = true
+      this.doneCount = 0
 
       ipcRenderer.send('download-musics', {
         urls: this.urls,
@@ -44,7 +46,7 @@ export default {
       })
 
       ipcRenderer.on('one-done', () => {
-        console.log('one-done')
+        this.doneCount += 1
       })
 
       ipcRenderer.on('all-done', () => {
@@ -54,17 +56,12 @@ export default {
       ipcRenderer.on('progress', (event, arg) => {
         console.log(arg)
       })
-    },
-    next () {
-      this.download(this.musics[this.i])
-      this.i += 1
-
-      if (this.i > this.musics.length) {
-        this.isWorking = false
-      }
     }
   },
   computed: {
+    isWorking () {
+      return this.doneCount < this.musics.length
+    },
     icon () {
       if (this.isWorking) {
         return 'sync'
@@ -84,6 +81,11 @@ export default {
       })
 
       return urls
+    }
+  },
+  watch: {
+    musics (newValue) {
+      this.doneCount = newValue
     }
   }
 }
