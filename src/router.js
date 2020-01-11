@@ -5,6 +5,7 @@ import Home from './components/Home.vue'
 import Browse from './components/browse/Browse.vue'
 import Search from './components/browse/search/Search.vue'
 import CategorySelector from './components/browse/categories/CategorySelector.vue'
+import Category from './components/browse/categories/Category.vue'
 import Release from './components/releases/Release.vue'
 
 Vue.use(VueRouter)
@@ -23,8 +24,12 @@ const routes = [
     component: Browse,
     children: [
       {
-        path: 'category/:category',
+        path: '',
         component: CategorySelector
+      },
+      {
+        path: 'category/:category',
+        component: Category
       },
       {
         path: 'search',
