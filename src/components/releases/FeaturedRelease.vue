@@ -1,8 +1,8 @@
 <template>
-  <b-card class="mb-3 shadow" bg-variant="300">
+  <b-card class="mb-3 shadow" bg-variant="100" @click="$router.push('/release/' + release.catalogId)">
     <b-row class="align-items-center">
-      <b-col md="4" lg="3" xl="2">
-        <b-img fluid-grow rounded :src="release.coverUrl"></b-img>
+      <b-col md="4" lg="3" xl="2" class="d-flex justify-content-center">
+        <b-img class="album-img mb-2 mb-md-0" fluid-grow rounded :src="release.coverUrl"></b-img>
       </b-col>
       <b-col>
         <div class="h5 mb-0">

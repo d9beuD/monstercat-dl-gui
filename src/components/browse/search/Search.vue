@@ -1,6 +1,8 @@
 <template>
   <b-container>
-    <search-bar></search-bar>
+    <div class="d-flex justify-content-center">
+      <search-bar></search-bar>
+    </div>
   </b-container>
 </template>
 
