@@ -32,6 +32,7 @@
 <script>
   import FeaturedRelease from './releases/FeaturedRelease.vue'
   import ReleasesList from './releases/ReleasesList.vue'
+  import api from '../api'
 
   export default {
     data() {
@@ -51,9 +52,11 @@
     mounted() {
       this.isWorking = true
 
-      fetch(this.$root.monstercat + '/api/catalog/release?limit=50')
-        .then(data => data.json()).then(json => {
+      api.get.releases(50)
+        .then(response => response.data).then(json => {
           this.releases = json.results
+        })
+        .finally(() => {
           this.isWorking = false
         })
     },
