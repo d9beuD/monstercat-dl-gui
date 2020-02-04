@@ -1,5 +1,7 @@
 # monstercat-dl-gui
 
+Browse and download Monstercat releases.
+
 ## Project setup
 ```
 npm install
