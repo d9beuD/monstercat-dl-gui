@@ -30,6 +30,7 @@
 <script>
 import ReturnBar from './../ReturnBar.vue'
 import DownloadButton from './../download/DownloadButton.vue'
+import api from '../../api'
 
 export default {
   data () {
@@ -48,8 +49,8 @@ export default {
   methods: {
   },
   mounted () {
-    fetch(this.$root.monstercat + '/api/catalog/release/' + this.$route.params.id)
-      .then(data => data.json()).then(json => {
+    api.get.release(this.$route.params.id)
+      .then(response => response.data).then(json => {
         this.release = json
         fetch(this.$root.monstercat + '/api/catalog/browse/?albumId=' + this.release._id)
           .then(data => data.json()).then(json => {
