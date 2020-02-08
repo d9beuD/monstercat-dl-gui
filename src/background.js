@@ -26,7 +26,8 @@ function createWindow () {
     minHeight: 640,
     frame: process.platform === 'darwin' ? true : false,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      webSecurity: false
     }
   })
 
