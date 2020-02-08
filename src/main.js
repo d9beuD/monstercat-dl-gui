@@ -4,8 +4,8 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 
+import './scss/custom.scss'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import './assets/css/bootstrap/dist/css/custom.min.css'
 import './icons'
 
 Vue.config.productionTip = false
