@@ -1,19 +1,24 @@
 <template>
   <div id="app">
-    <mac-window-button-space></mac-window-button-space>
-    <navbar></navbar>
-    <router-view></router-view>
+    <b-row no-gutters>
+      <b-col cols="auto" class="main-column main-navbar-column">
+        <navbar></navbar>
+      </b-col>
+      <b-col class="main-column">
+        <router-view></router-view>
+      </b-col>
+    </b-row>
+
+
   </div>
 </template>
 
 <script>
-import MacWindowButtonSpace from './components/MacWindowButtonsSpace.vue'
 import Navbar from './components/Navbar.vue'
 
 export default {
   name: 'App',
   components: {
-    MacWindowButtonSpace,
     Navbar
   },
   data () {

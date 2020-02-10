@@ -27,6 +27,10 @@ $theme-colors: map-merge(
 
 @import "~bootstrap/scss/bootstrap";
 
+body, html {
+  position: relative;
+}
+
 .bg-blur {
   background-color: rgba(255,255,255,.85);
   backdrop-filter: blur(10px);
@@ -39,4 +43,38 @@ $theme-colors: map-merge(
 
 .album-img {
   max-width: 300px !important;
+}
+
+.main-column {
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: auto;
+}
+
+.main-navbar-column {
+  width: 200px;
+  position: sticky;
+  background-color: $white;
+  box-shadow: $box-shadow;
+  border-right: $border-width solid $border-color;
+  z-index: 1030;
+}
+
+.main-navbar {
+  flex-direction: column;
+
+  .navbar-nav {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .nav-link {
+    border-radius: $rounded-pill;
+    padding-left: $spacer !important;
+    padding-right: $spacer !important;
+  }
+
+  .nav-link.active {
+    background-color: $gray-300;
+  }
 }

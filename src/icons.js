@@ -7,20 +7,29 @@ import {
 } from '@fortawesome/vue-fontawesome'
 
 import {
-  faDownload,
+  faCheck,
   faChevronLeft,
   faChevronRight,
+  faCompactDisc,
+  faDownload,
   faExclamationTriangle,
+  faHome,
+  faSearch,
   faSync,
   faUserAstronaut,
-  faCompactDisc,
-  faSearch,
-  faCheck
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
-  faDownload, faChevronLeft, faChevronRight, faExclamationTriangle, faSync, faUserAstronaut,
-  faCompactDisc, faSearch, faCheck
+  faCheck,
+  faChevronLeft,
+  faChevronRight,
+  faCompactDisc,
+  faDownload,
+  faExclamationTriangle,
+  faHome,
+  faSearch,
+  faSync,
+  faUserAstronaut,
 )
 
 Vue.component('fa-icon', FontAwesomeIcon)

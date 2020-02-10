@@ -7,6 +7,7 @@ import Search from './components/browse/search/Search.vue'
 import CategorySelector from './components/browse/categories/CategorySelector.vue'
 import Category from './components/browse/categories/Category.vue'
 import Release from './components/releases/Release.vue'
+import LastReleases from '@/components/LastReleases.vue'
 
 Vue.use(VueRouter)
 
@@ -17,10 +18,22 @@ const routes = [
   },
   {
     path: '/home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '',
+        name: 'home',
+        component: LastReleases,
+      },
+      {
+        path: 'release/:id',
+        component: Release
+      }
+    ]
   },
   {
     path: '/browse',
+    name: 'browse',
     component: Browse,
     children: [
       {
@@ -36,10 +49,6 @@ const routes = [
         component: Search
       }
     ]
-  },
-  {
-    path: '/release/:id',
-    component: Release
   }
 ]
 
