@@ -38,7 +38,7 @@
         return this.seeAll ? 'View less' : 'View more'
       },
       list() {
-        return this.seeAll ? this.releasesList : this.releasesList.slice(0, 4)
+        return this.seeAll ? this.releasesList : this.releasesList.slice(0, 9)
       }
     },
     methods: {
