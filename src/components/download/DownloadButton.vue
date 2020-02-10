@@ -12,10 +12,13 @@
 
 <script>
 /* eslint-disable no-console */
+
+import { mapActions } from 'vuex'
+
 export default {
   props: {
     musics: {
-      type: Array || Object,
+      type: Array,
       required: true
     },
     title: {
@@ -55,25 +58,11 @@ export default {
     }
   },
   methods: {
-    downloadAll (event) {
-      event.preventDefault()
-
-      const { ipcRenderer } = require("electron")
-      this.i = 0
-      this.doneCount = 0
-
-      ipcRenderer.send('download-musics', {
-        urls: this.urls,
-        album: this.albumName
-      })
-
-      ipcRenderer.on('one-done', () => {
-        this.doneCount += 1
-      })
-
-      ipcRenderer.on('progress', (event, progress) => {
-        this.progress = progress.progress
-      })
+    ...mapActions('downloader', [
+      'download'
+    ]),
+    downloadAll () {
+      this.download(this.musics)
     }
   },
   computed: {

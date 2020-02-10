@@ -17,6 +17,13 @@ let win
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: { secure: true, standard: true } }])
 
+// Set default download path
+BrowserWindow.prototype.setDownloadSavePath = function (path) {
+  this.webContents.session.once('will-download', (event, item) => {
+    item.setSavePath(path + '/' + item.getFilename());
+  });
+};
+
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
@@ -84,21 +91,6 @@ app.on('ready', async () => {
 
   }
   createWindow()
-})
-
-DownloadManager.register({downloadFolder: app.getPath('downloads')})
-Downloader.setDownloadManager(DownloadManager)
-Downloader.setApp(app)
-
-ipcMain.on('download-musics', (event, info) => {
-  Downloader.download(info.urls, {
-    onDone: (error, payload) => {
-      event.reply('one-done', payload.url)
-    },
-    onProgress: (progress) => {
-      event.reply('progress', progress)
-    }
-  })
 })
 
 ipcMain.on('get-platform', (event) => {
